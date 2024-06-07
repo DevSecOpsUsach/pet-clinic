@@ -82,21 +82,31 @@ jobs:
         -Dsonar.branch.name=
 
 
-#----------------------------------- SCA ---------------------------------------------
-
+#--------------------- SCA -------------------------------------------
+      
   SCA:
     needs: SAST
     runs-on: ubuntu-latest
     steps:
-
-    - name: Checkout code
-      uses: actions/checkout@v2
     
-    - name: Build
-      run: | 
-        chmod 777 gradlew
-        ./gradlew build
+    - name: Checkout code
+      uses: actions/checkout@v2      
 
+    - name: Build
+      id: build
+      run: |
+        #pwd
+        #ls -R
+        if [ -f "build.gradle" ]
+        then
+          echo "Utiliza build.gradle, proyecto Java"
+          echo "Se habilita permiso de ejecución de archivo gradlew"
+          chmod 777 gradlew
+          ./gradlew build
+        else
+          echo "Otro tipo de proyecto"
+        fi
+    
     - name: Dependency Check
       uses: dependency-check/Dependency-Check_Action@1.1.0
       env:
@@ -106,13 +116,13 @@ jobs:
         project: '${{ github.event.repository.name }}'
         path: '.'
         format: 'HTML'
-        out: 'report'
+        out: 'reports'
         args: >
           --failOnCVSS 7
           --enableRetired
-    
+
     - name: Upload Test result
-      uses: actions/upload-artifacts@master
+      uses: actions/upload-artifact@master
       with:
         name: Depcheck report
-        path: ${{github.workspace}}/report
+        path: ${{github.workspace}}/reports
