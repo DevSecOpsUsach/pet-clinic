@@ -186,8 +186,8 @@ jobs:
         format: 'table'
     
     - name: Push Docker
-        run: | 
-          docker push b4b4y4g4x/cursodevsecops-test:latest
+      run: | 
+        docker push b4b4y4g4x/cursodevsecops-test:latest
 
 
 # ----------------- DAST -----------------------------------------
