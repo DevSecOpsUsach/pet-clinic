@@ -148,7 +148,7 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Download Test result
+    - name: Download JAR
       uses: actions/download-artifact@master
       with:
         name: JAR
