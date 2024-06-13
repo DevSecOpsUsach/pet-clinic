@@ -103,6 +103,7 @@ jobs:
           echo "Se habilita permiso de ejecución de archivo gradlew"
           chmod 777 gradlew
           ./gradlew build
+          ls -R
         else
           echo "Otro tipo de proyecto"
         fi
