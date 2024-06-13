@@ -133,3 +133,27 @@ jobs:
       with:
         name: JAR
         path: ${{github.workspace}}/build/libs/spring-petclinic-2.6.0.jar
+
+
+#-------------------- Docker Build Image ----------------------------
+
+  DockerBuild:
+    needs: SCA
+    runs-on: self-hosted
+    steps:
+    
+    - name: Docker Login
+      uses: docker/login-action@v3.0.0
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Download Test result
+      uses: actions/download-artifact@master
+      with:
+        name: JAR
+        path: ${{github.workspace}}
+    
+    - name: Build Docker
+        run: |
+          docker build --tag b4b4y4g4x/cursodevsecops-test:latest .
