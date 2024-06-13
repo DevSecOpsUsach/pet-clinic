@@ -170,8 +170,8 @@ jobs:
     steps:
     
     - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'b4b4y4g4x/cursodevsecops-test:latest'
-          format: 'table'
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'b4b4y4g4x/cursodevsecops-test:latest'
+        format: 'table'
 
