@@ -126,3 +126,15 @@ jobs:
       with:
         name: Depcheck report
         path: ${{github.workspace}}/reports
+
+
+
+# ----------------- Docker Build Image ----------------------------------------
+  
+  DockerBuild:
+    needs: SCA
+    runs-on: self-hosted
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v2
