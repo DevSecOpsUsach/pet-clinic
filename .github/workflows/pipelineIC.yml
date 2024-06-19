@@ -220,4 +220,4 @@ jobs:
       uses: action/upload-artifact@v4
       with:
         name: DAST-Report
-        path: DAST.html
+        path: ${{github.workspace}}/DAST.html
