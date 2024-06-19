@@ -213,6 +213,8 @@ jobs:
       uses: zaproxy/action-baseline@v0.11.0
       with:
         target: 'http://localhost:8085'
+        format: 'html'
+        output: 'DAST-Report.html'
     
     - name: Upload HTML Report
       uses: action/upload-artifact@v4
