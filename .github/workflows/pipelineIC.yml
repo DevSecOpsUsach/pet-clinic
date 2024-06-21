@@ -201,13 +201,17 @@ jobs:
     runs-on: self-hosted
     steps:
 
+    - name: Pull de la Imagen Docker
+      run: | 
+        docker pull b4b4y4g4x/cursodevsecops-test:latest
+    
     - name: Despliegue Aplicacion
       run: | 
         docker run -p 8085:8085 --name pet-clinic-deploy b4b4y4g4x/cursodevsecops-test:latest
     
     - name: Sleep
       run: |
-        sleep 3
+        sleep 30
     
     - name: OWASP ZAP Scan
       uses: zaproxy/action-baseline@v0.11.0
