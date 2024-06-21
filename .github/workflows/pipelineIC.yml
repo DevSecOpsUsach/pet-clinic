@@ -201,6 +201,12 @@ jobs:
     runs-on: self-hosted
     steps:
 
+    - name: Docker Login
+      uses: docker/login-action@v3.0.0
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
     - name: Pull de la Imagen Docker
       run: | 
         docker pull b4b4y4g4x/cursodevsecops-test:latest
