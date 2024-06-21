@@ -207,7 +207,7 @@ jobs:
     
     - name: Despliegue Aplicacion
       run: | 
-        docker run -p 8085:8085 --name pet-clinic-deploy b4b4y4g4x/cursodevsecops-test:latest
+        docker run -p 8085:8085 --name pet-clinic-deploy -d b4b4y4g4x/cursodevsecops-test:latest --privileged .
     
     - name: Sleep
       run: |
