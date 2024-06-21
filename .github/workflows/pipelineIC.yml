@@ -201,7 +201,7 @@ jobs:
     runs-on: self-hosted
     steps:
 
-    - name: OWASP ZAP Scan
+    - name: OWASPZAPScan
       uses: zaproxy/action-baseline@v0.11.0
       with:
         target: 'http://localhost:8085'
@@ -211,7 +211,7 @@ jobs:
       with:
         format: html
         output: zap-report.html
-        scan: ${{ steps.OWASP ZAP Scan.outputs.scan }}
+        scan: ${{ steps.OWASPZAPScan.outputs.scan }}
 
     - name: Upload Report as Artifact
       uses: actions/upload-artifact@v2
