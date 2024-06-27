@@ -242,6 +242,7 @@ jobs:
       uses: zaproxy/action-baseline@v0.11.0
       with:
         target: 'http://localhost:8085/'
+        delay: 1000
     
 #    - name: OWASP ZAP Scan
 #      run: |
