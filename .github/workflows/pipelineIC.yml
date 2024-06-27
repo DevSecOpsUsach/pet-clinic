@@ -145,22 +145,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build
+    - name: Build JAR
       id: build
       run: |
-        #pwd
-        #ls -R
-        if [ -f "build.gradle" ]
-        then
-          echo "Utiliza build.gradle, proyecto Java"
-          echo "Se habilita permiso de ejecución de archivo gradlew"
-          chmod 777 gradlew
-          ./gradlew build
-          cp ${{github.workspace}}/build/libs/spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
-          ls -R
-        else
-          echo "Otro tipo de proyecto"
-        fi
+        chmod 777 gradlew
+        ./gradlew build
+        cp ${{github.workspace}}/build/libs/spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
+        ls -R
+        
     
     - name: Docker Login
       uses: docker/login-action@v3.0.0
