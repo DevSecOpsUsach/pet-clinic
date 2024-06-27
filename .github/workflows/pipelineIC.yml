@@ -150,7 +150,8 @@ jobs:
       run: |
         chmod 777 gradlew
         ./gradlew build
-        #cp ${{github.workspace}}/build/libs/spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
+        echo "********************************termina de compilar *********************************"
+        cp ${{github.workspace}}/build/libs/spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
         ls -R
         
     
