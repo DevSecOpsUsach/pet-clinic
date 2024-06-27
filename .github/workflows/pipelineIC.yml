@@ -151,9 +151,16 @@ jobs:
         chmod 777 gradlew
         ./gradlew build
         echo "********************************termina de compilar *********************************"
+        pwd
+        echo ya vi donde toy
+        echo ahora voy a libs
         cd ${{github.workspace}}/build/libs
-        cp spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
-        ls -R
+        echo adonde toy
+        pwd
+        echo que hay
+        ls
+        #cp spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
+        #ls -R
         
     
     - name: Docker Login
