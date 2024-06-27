@@ -215,7 +215,7 @@ jobs:
 # ----------------- DAST -----------------------------------------
 
   DAST:
-    needs: DockerScan
+#    needs: DockerScan
 #    runs-on: self-hosted
     runs-on: ubuntu-latest
     steps:
