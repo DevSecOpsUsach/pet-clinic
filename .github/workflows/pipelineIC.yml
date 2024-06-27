@@ -154,7 +154,7 @@ jobs:
         pwd
         cd ${{github.workspace}}/build/libs
         ls
-        copy spring-petclinic-2.6.0.jar ${{github.workspace}}/pet-clinic/pet-clinic
+        copy spring-petclinic-2.6.0.jar ${{github.workspace}}
         #ls -R
         
     
