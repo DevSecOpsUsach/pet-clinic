@@ -188,6 +188,8 @@ jobs:
       with:
         image-ref: 'b4b4y4g4x/cursodevsecops-test:latest'
         format: 'table'
+        severity: CRITICAL
+        fail-on: CRITICAL
     
     - name: Push Docker
       run: | 
