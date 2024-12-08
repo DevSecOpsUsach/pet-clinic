@@ -2,35 +2,15 @@ name: Workflow
 on:
   push:
     branches:
-      - feature/devsecops-example2
+      - feature/devsecops-example3
 
       
 jobs:
-  BUILD:
+  SAST:
     runs-on: ubuntu-latest
     steps:
 
-    
-      - name: Hola Mundo
-        run: |
-          echo 'Hola Mundo'
-
-  TESTING:
-    runs-on: ubuntu-latest
-    steps:
-
-    
-      - name: Hola Mundo
-        run: |
-          echo 'Hola Mundo'
-        
-
-  DEPLOY:
-    runs-on: ubuntu-latest
-    steps:
-
-    
-      - name: Hola Mundo
-        run: |
-          echo 'Hola Mundo'
-                                  
+    - name : Creando proyecto en Sonar
+      run: |
+        curl -f -X POST -u '${{secrets.SONAR_TOKEN}}:' 'https://sonarcloud/api/projects/create' -d  'name=${{github.event.repository.name}}' -d 'organization=DevSecOpsEdzamo' -d 'visibility=public'      
+                            
