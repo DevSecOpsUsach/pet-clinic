@@ -11,17 +11,14 @@ jobs:
     steps: 
       - name: Compilación
         run: |
-          echo 'Aqui Compilamos' 
-          echo 'IMPRIMIMOS'
+          echo 'Aqui Compilamos'
 
   TESTING:
     runs-on: ubuntu-latest
     steps: 
       - name: Testing
         run: |
-          echo 'Aqui se Realizan Pruebas' 
-          echo 'Fallo testing'
-          exit 1
+          echo 'Aqui se Realizan Pruebas'
 
   DEPLOY:
     runs-on: ubuntu-latest
