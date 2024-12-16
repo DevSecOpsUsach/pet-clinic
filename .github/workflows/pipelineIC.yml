@@ -23,6 +23,6 @@ jobs:
   DEPLOY:
     runs-on: ubuntu-latest
     steps: 
-      - name: Testing
+      - name: Despliegue
         run: |
           echo 'SE DESPLIEGA' 
