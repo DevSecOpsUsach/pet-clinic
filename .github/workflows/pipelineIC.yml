@@ -6,10 +6,23 @@ on:
       - main
       
 jobs:
-  PRUEBA:
+  BUILD:
     runs-on: ubuntu-latest
     steps: 
-      - name: Imprimir Code
+      - name: Compilación
         run: |
-          echo 'Hola Mundo' 
-          
+          echo 'Aqui Compilamos' 
+
+  TESTING:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Testing
+        run: |
+          echo 'Aqui se Realizan Pruebas' 
+
+  DEPLOY:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Testing
+        run: |
+          echo 'SE DESPLIEGA' 
