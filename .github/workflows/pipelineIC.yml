@@ -19,6 +19,8 @@ jobs:
       - name: Testing
         run: |
           echo 'Aqui se Realizan Pruebas' 
+          echo 'Fallo testing'
+          exit 1
 
   DEPLOY:
     runs-on: ubuntu-latest
