@@ -110,7 +110,7 @@ jobs:
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.branch.name=$BRANCH_NAME
 
-      - name: Validate Quality Gate-
+      - name: Validate Quality Gate
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           REPO_NAME: ${{ github.event.repository.name }}
