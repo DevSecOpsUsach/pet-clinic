@@ -14,7 +14,7 @@ jobs:
       - name: Validando existencia de proyecto en SonarCloud
         id: validateProjectSonar
         run: |
-          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}' -d 'visibility=public'
+          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}' -d 'visibility=private'
           
           if [ $? -eq 0 ]; then
             echo "Proyecto creado exitosamente en SonarCloud"
@@ -25,7 +25,7 @@ jobs:
       
       - name: Validando tipo de proyecto
         run: |
-          if [ -f "build.gradle " ]; then
+          if [ -f "build.gradle" ]; then
             echo "El proyecto es de tipo Gradle"
             if grep -q 'id "org.sonarqube" version "3.3"' build.gradle; then
               echo "El plugin de SonarQube ya está configurado en build.gradle"
