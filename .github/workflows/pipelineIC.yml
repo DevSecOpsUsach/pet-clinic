@@ -41,6 +41,7 @@ jobs:
       
       - name: Ejecutando Sonarcloud
         run: |
+          chmod 777 gradlew
           ./gradlew sonarqube -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad -Dsonar.organization=curso-seguridad -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.branch.name=main
 
       
