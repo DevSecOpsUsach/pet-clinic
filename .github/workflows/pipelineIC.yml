@@ -11,9 +11,36 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: HOLA MUNDO
-        run: | 
-          echo "HOLA MUNDO"
-          echo "curso devsecops"
+      - name: Validando existencia de proyecto en SonarCloud
+        id: validateProjectSonar
+        run: |
+          curl -f -X POST -u '${{ secret.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}' -d 'visibility=public'
+          
+          if [ $? -eq 0 ]; then
+            echo "Proyecto creado exitosamente en SonarCloud"
+            curl -f -X POST -u '${{ secret.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
+          else
+            echo "El proyecto ya existe en SonarCloud o hubo un error al crearlo"
+          fi
+      
+      - name: Validando tipo de proyecto
+        run: |
+          if [ -f "build.gradle " ]; then
+            echo "El proyecto es de tipo Gradle"
+            if grep -q 'id "org.sonarqube" version "3.3"' build.gradle; then
+              echo "El plugin de SonarQube ya está configurado en build.gradle"
+            else
+              sed -i '/id '\''java'\''/a \ \ \ \ id '\''org.sonarqube'\'' version '\''3.3'\''' build.gradle
+              echo "Plugin de SonarQube agregado a build.gradle"
+              cat build.gradle
+            fi
+          else
+            echo "No se encontró un archivo de construcción válido (build.gradle o pom.xml)"
+            exit 1
+          fi
+      
+      - name: Ejecutando Sonarcloud
+        run: |
+          ./gradlew sonarqube -Dsonar.projectKey=${{ github.event.repository.name }} -Dsonar.organization=curso-seguridad -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.branch.name=main
 
       
