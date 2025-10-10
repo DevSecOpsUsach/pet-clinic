@@ -14,11 +14,11 @@ jobs:
       - name: Validando existencia de proyecto en SonarCloud
         id: validateProjectSonar
         run: |
-          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}' -d 'visibility=private'
+          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}-curso-seguridad' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}-curso-seguridad' -d 'visibility=private'
           
           if [ $? -eq 0 ]; then
             echo "Proyecto creado exitosamente en SonarCloud"
-            curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
+            curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}-curso-seguridad'
           else
             echo "El proyecto ya existe en SonarCloud o hubo un error al crearlo"
           fi
@@ -41,6 +41,6 @@ jobs:
       
       - name: Ejecutando Sonarcloud
         run: |
-          ./gradlew sonarqube -Dsonar.projectKey=${{ github.event.repository.name }} -Dsonar.organization=curso-seguridad -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.branch.name=main
+          ./gradlew sonarqube -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad -Dsonar.organization=curso-seguridad -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.branch.name=main
 
       
