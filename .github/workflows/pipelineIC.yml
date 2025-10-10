@@ -11,18 +11,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Validando existencia de proyecto en SonarCloud
-        id: validateProjectSonar
-        run: |
-          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}-curso-seguridad' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}-curso-seguridad' -d 'visibility=private'
-          set +e
-          if [ $? -ne 0 ]; then
-            echo "El proyecto ya existe en SonarCloud o hubo un error al crearlo"
-          else
-            echo "Proyecto creado exitosamente en SonarCloud"
-            curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}-curso-seguridad'
-          fi
-          set -e
+      #- name: Validando existencia de proyecto en SonarCloud
+      #  id: validateProjectSonar
+      #  run: |
+      #    curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}-curso-seguridad' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}-curso-seguridad' -d 'visibility=private'
+      #    set +e
+      #    if [ $? -ne 0 ]; then
+      #      echo "El proyecto ya existe en SonarCloud o hubo un error al crearlo"
+      #    else
+      #      echo "Proyecto creado exitosamente en SonarCloud"
+      #      curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}-curso-seguridad'
+      #    fi
+      #    set -e
       
       - name: Validando tipo de proyecto
         run: |
