@@ -13,6 +13,13 @@ sourceCompatibility = '11'
 repositories {
   mavenCentral()
 }
+sonar {
+  properties {
+    property "sonar.projectKey", "pet-clinic"
+    property "sonar.organization", "imssolar"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
+}
 
 ext.webjarsFontawesomeVersion = "4.7.0"
 ext.webjarsBootstrapVersion = "5.1.3"
