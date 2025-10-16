@@ -11,18 +11,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      #- name: Validando existencia de proyecto en SonarCloud
-      #  id: validateProjectSonar
-      #  run: |
-      #    curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}-curso-seguridad' -d 'organization=curso-seguridad' -d 'project=${{ github.event.repository.name }}-curso-seguridad' -d 'visibility=private'
-      #    set +e
-      #    if [ $? -ne 0 ]; then
-      #      echo "El proyecto ya existe en SonarCloud o hubo un error al crearlo"
-      #    else
-      #      echo "Proyecto creado exitosamente en SonarCloud"
-      #      curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}-curso-seguridad'
-      #    fi
-      #    set -e
+      - name: Validando existencia de proyecto en SonarCloud
+        id: validateProjectOnSonar
+        run: |
+          #pwd
+          #ls -R
+          set +e
+          curl -f -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/projects/create' -d 'name=${{ github.event.repository.name }}' -d 'project=${{ github.event.repository.name }}' -d 'organization=devsecopsusach' -d 'visibility=public'
+          if [ $? -ne 0 ]; then
+            echo "Proyecto ya existe en Sonarcloud"
+            echo "::set-output name=proyectoExiste::1"
+          else
+            echo "Proyecto ${{ github.event.repository.name }} creado exitosamente en Sonarcloud"
+            
+            echo "Se establece rama main como rama por defecto"
+            curl -X POST -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/project_branches/rename' -d 'name=main' -d 'project=${{ github.event.repository.name }}'
+          fi
+          set -e
       
       - name: Validando tipo de proyecto
         run: |
