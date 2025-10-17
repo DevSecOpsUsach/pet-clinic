@@ -48,6 +48,21 @@ jobs:
       - name: Ejecutando Sonarcloud
         run: |
           chmod 777 gradlew
-          ./gradlew sonarqube -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad -Dsonar.organization=curso-seguridad -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.branch.name=main
+          ./gradlew sonarqube \
+            -Dsonar.projectKey=${{ github.event.repository.name }}-curso-seguridad \
+            -Dsonar.organization=curso-seguridad \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.branch.name=main
 
-      
+      - name: Validando resultado de SonarCloud
+        run: | 
+
+          issueValidate=$(curl -s -X GET -u '${{ secrets.SONAR_TOKEN }}:' 'https://sonarcloud.io/api/issues/search?branch=main&componentKeys=${{ github.event.repository.name }}-curso-seguridad&facets=severities' | jq '.facets[0].values[1].count')
+          echo "Cantidad de issues bloqueantes: $issueValidate"
+          if [ "$issueValidate" -gt 0 ]; then
+            echo "Se encontraron issues bloqueantes. Se quiebra el pipeline."
+            exit 1
+          else
+            echo "No se encontraron issues bloqueantes. Pipeline Continua."
+          fi
