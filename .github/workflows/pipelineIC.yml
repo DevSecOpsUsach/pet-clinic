@@ -116,6 +116,8 @@ jobs:
         run: | 
           chmod 777 gradlew
           ./gradlew build
+
+          ls -R
       
       - name: Build Docker Image
         run: |
