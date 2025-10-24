@@ -131,6 +131,7 @@ jobs:
       - name: Run Trivy Scan
         uses: aquasecurity/trivy-action@master
         with:
+          image-ref: ${{ secrets.DOCKER_USER }}/petclinic:latest
           format: 'table'
           exit-code: '1'
           vuln-type: 'os,library'
